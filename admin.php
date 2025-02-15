@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Scrivi i nuovi valori nel file JSON
         writeCounters($counters);
     } elseif (isset($_POST['start_timer'])) {
-        // Avvia il timer (imposta il valore a 180 minuti se non è già stato impostato)
+        // Avvia il timer (imposta il valore a 190 minuti se non è già stato impostato)
         $counters['timer'] = 11400; // Puoi cambiare questo valore se desideri un timer diverso
         writeCounters($counters);
     }
@@ -71,10 +71,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="counter_ah3">Valore Counter AH3:</label>
                 <input type="number" id="counter_ah3" name="counter_ah3" class="form-control" value="<?= $counters['counter_ah3'] ?>" required>
             </div>
+            <div class="form-group">
+                <label for="timer">Valore Timer (minuti):</label>
+                <input type="number" id="timer" name="timer" class="form-control" value="<?= $counters['timer'] ?>" required>
+            </div>
             <button type="submit" name="set_values" class="btn btn-primary">Imposta Valori</button>
-            <button type="submit" name="start_timer" class="btn btn-success">Avvia Timer</button>
+            <button type="submit" name="reset_timer"class="btn btn-primary" onclick="resetTimer();">Reset Timer</button>
         </form>
-        <a href="index.php" class="btn btn-secondary mt-3">Torna alla Home</a>
+        
+
     </div>
 </body>
 </html>
+
+<script>
+   
+function resetTimer() {
+   localStorage.removeItem("timer");
+}
+    
+</script>

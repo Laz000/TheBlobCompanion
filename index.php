@@ -12,7 +12,6 @@ function readCounters() {
 $counters = readCounters();
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -201,10 +200,18 @@ $counters = readCounters();
             <div class="counter">
                 <div id="countdown" class="h2"></div>
             </div>
+            
         </div>
 
         <script>
-            let timer = 11400;
+            let timer = 0;
+            if(localStorage.getItem('timer')!=null){
+                timer = localStorage.getItem('timer');
+            } else{
+                timer = <?= $counters['timer'] ?>;
+            } 
+            
+            localStorage.setItem('timer', timer);
             const countdownElement = document.getElementById('countdown');
 
             function updateCountdown() {
@@ -212,6 +219,14 @@ $counters = readCounters();
                 const minutes = Math.floor((timer % 3600) / 60);
                 const seconds = timer % 60;
                 countdownElement.innerHTML = ''; // Pulisci il contenuto precedente
+
+                if(localStorage.getItem('timer')==null){
+                    
+                    timer = <?= $counters['timer'] ?>;
+
+                 }
+
+                
 
                 // Aggiungi le immagini per le ore
                 const hourImages = String(hours)
@@ -247,6 +262,8 @@ $counters = readCounters();
                 secondImages.forEach(img => countdownElement.innerHTML += img);
 
                 timer--;
+                localStorage.setItem('timer', timer);
+             
 
                 if (timer < 0) {
                     clearInterval(countdownInterval);
@@ -298,10 +315,7 @@ $counters = readCounters();
             // Aggiorna i valori ogni 5 secondi
             setInterval(updateValues, 5000);
 
-            // Genera i QR code
-            const qrAH = new QRious({
-                element: document.getElementById('qr_ah'), value: 'https://teambydesign.it/TheBlobCompanion/ah_counters.php' // URI per Arkham Horror
-            });
+           
         </script>
     </body>
 </html>

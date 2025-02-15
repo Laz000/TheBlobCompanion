@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 text-align: center;
             }
             .container {
-                margin-top: 50px;
+                margin-top: 0px;
                 background: rgba(0, 0, 0, 0.7);
                 padding: 20px;
                 border-radius: 10px;
